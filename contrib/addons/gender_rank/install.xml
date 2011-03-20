@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.0.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+		<title lang="en">Gender Rank</title>
+		<description lang="en"><![CDATA[Extend on Genders Mod by eviL<3, giving rank title specific to gender, inspired from Extended Rank by Ptirhiik for phpBB2 (and compatible with the extended rank titles after convertion from phpBB2)]]></description>
+		<author-notes lang="en"><![CDATA[Requires Genders MOD by eviL<3
+The rank titles are stored in the DB with each 3 genders (unspecified, male, female) concatained with separator '|' like it was done in phpBB2.]]></author-notes>
+		<author-group>
+			<author>
+				<realname>Fabrice Azorin-Lara</realname>
+				<email>alf007@free.fr</email>
+				<username>Alf-007</username>
+				<homepage />
+				<contributions />
+			</author>
+			<author>
+				<realname>Igor Wiedler</realname>
+				<email>evil@phpbbmodders.net</email>
+				<username>eviL&lt;3</username>
+				<homepage>http://phpbbmodders.net</homepage>
+				<contributions />
+			</author>
+		</author-group>
+		<mod-version>
+			<major>1</major>
+			<minor>0</minor>
+			<revision>1</revision>
+		</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>
+				<target-primary>3.0.0</target-primary>
+				<target-major allow="exact">3</target-major>
+				<target-minor allow="exact">0</target-minor>
+				<target-revision allow="exact">0</target-revision>
+			</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2007-12-27</date>
+				<rev-version>
+					<major>0</major>
+					<minor>1</minor>
+					<revision>0</revision>
+				</rev-version>
+				<changelog lang="en">
+					<change>Initial</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2008-01-01</date>
+				<rev-version>
+					<major>1</major>
+					<minor>0</minor>
+					<revision>0</revision>
+				</rev-version>
+				<changelog lang="en">
+					<change>Slightly modified by evil3 and added to the genders package</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2008-04-12</date>
+				<rev-version>
+					<major>1</major>
+					<minor>0</minor>
+					<revision>1</revision>
+				</rev-version>
+				<changelog lang="en">
+					<change>Renamed function to get_user_gender_rank and escape_user_gender_rank, i had missed it at many many places</change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<open src="memberlist.php">
+			<edit>
+				<find><![CDATA[				'RANK_TITLE'	=> $rank_title,]]></find>
+				<action type="replace-with"><![CDATA[				'RANK_TITLE'	=> get_user_gender_rank($rank_title, $row['user_gender']),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				'GROUP_RANK'	=> $rank_title,]]></find>
+				<action type="replace-with"><![CDATA[				'GROUP_RANK'	=> get_user_gender_rank($rank_title, GENDER_X),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		'RANK_TITLE'	=> $rank_title,]]></find>
+				<action type="replace-with"><![CDATA[		'RANK_TITLE'	=> get_user_gender_rank($rank_title, $data['user_gender']),]]></action>
+			</edit>
+		</open>
+		<open src="viewtopic.php">
+			<edit>
+				<find><![CDATA[				'rank_title'		=> '',]]></find>
+				<action type="before-add"><![CDATA[				'user_gender'		=> GENDER_X,]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				'rank_title'		=> '',]]></find>
+				<action type="before-add"><![CDATA[				'user_gender'		=> $row['user_gender'],]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		'RANK_TITLE'		=> $user_cache[$poster_id]['rank_title'],]]></find>
+				<action type="replace-with"><![CDATA[		'RANK_TITLE'		=> get_user_gender_rank($user_cache[$poster_id]['rank_title'], $user_cache[$poster_id]['user_gender']),]]></action>
+			</edit>
+		</open>
+		<open src="adm/style/acp_ranks.html">
+			<edit>
+				<find><![CDATA[		<dd><input name="title" type="text" id="title" value="{RANK_TITLE}" maxlength="255" /></dd>]]></find>
+				<action type="replace-with"><![CDATA[		<dd><input name="title_x" type="text" id="title_x" value="{RANK_TITLE_X}" maxlength="255" /> ({L_GENDER_X})</dd>
+		<dd><input name="title_m" type="text" id="title_m" value="{RANK_TITLE_M}" maxlength="255" /> ({L_GENDER_M})</dd>
+		<dd><input name="title_f" type="text" id="title_f" value="{RANK_TITLE_F}" maxlength="255" /> ({L_GENDER_F})</dd>]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		<th>{L_RANK_IMAGE}</th>
+		<th>{L_RANK_TITLE}</th>
+		<th>{L_RANK_MINIMUM}</th>
+		<th>{L_ACTION}</th>]]></find>
+				<action type="replace-with"><![CDATA[		<th rowspan="2">{L_RANK_IMAGE}</th>
+		<th colspan="3">{L_RANK_TITLE}</th>
+		<th rowspan="2">{L_RANK_MINIMUM}</th>
+		<th rowspan="2">{L_ACTION}</th>
+	</tr>
+	<tr>
+		<th>{L_GENDER_X}</th>
+		<th>{L_GENDER_M}</th>
+		<th>{L_GENDER_F}</th>]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		<td style="text-align: center;">{ranks.RANK_TITLE}</td>]]></find>
+				<action type="replace-with"><![CDATA[		<td style="text-align: center;">{ranks.RANK_TITLE_X}</td>
+		<td style="text-align: center;">{ranks.RANK_TITLE_M}</td>
+		<td style="text-align: center;">{ranks.RANK_TITLE_F}</td>]]></action>
+			</edit>
+		</open>
+		<open src="includes/functions_genders.php">
+			<edit>
+				<find><![CDATA[
+?>]]></find>
+				<action type="before-add"><![CDATA[/**
+ * Extract a title (for gender rank)
+ * Modified by evil3 for sexyness (regex)
+ *
+ * @param string $titles a string with all title concatained with separator '|'
+ * @param number $index index of title to retrieve
+ * @return string the title for the index
+ */
+function get_user_gender_rank($titles, $index)
+{
+	// thanks davidmj
+	$titles_ary = preg_split('#(?<!\\\\)\|#', $titles);
+
+	return !empty($titles_ary[$index]) ? $titles_ary[$index] : $titles_ary[GENDER_X];
+}
+
+/**
+ * Escape user ranks for db entry
+ */
+function escape_user_gender_rank($title)
+{
+	return str_replace('|', '\\|', $title);
+}]]></action>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_groups.php">
+			<edit>
+				<find>		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);</find>
+				<action type="after-add">		include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);</action>
+			</edit>
+			<edit>
+				<find><![CDATA[					$rank_options .= '<option value="' . $row['rank_id'] . '"' . $selected . '>' . $row['rank_title'] . '</option>';]]></find>
+				<inline-edit>
+					<inline-find>$row['rank_title']</inline-find>
+					<inline-action type="replace-with">get_user_gender_rank($row['rank_title'], GENDER_X)</inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_ranks.php">
+			<edit>
+				<find>		$user->add_lang('acp/posting');</find>
+				<action type="after-add">		include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);</action>
+			</edit>
+			<edit>
+				<find>				$rank_title = utf8_normalize_nfc(request_var('title', '', true));</find>
+				<action type="replace-with">				$rank_title = escape_user_gender_rank(utf8_normalize_nfc(request_var('title_x', '', true)));
+				$rank_title .= '|' . escape_user_gender_rank(utf8_normalize_nfc(request_var('title_m', '', true)));
+				$rank_title .= '|' . escape_user_gender_rank(utf8_normalize_nfc(request_var('title_f', '', true)));</action>
+			</edit>
+			<edit>
+				<find>				if (!$rank_title)</find>
+				<inline-edit>
+					<inline-find>!$rank_title</inline-find>
+					<inline-action type="after-add"> || $rank_title == '||'</inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[					'RANK_TITLE'		=> (isset($ranks['rank_title'])) ? $ranks['rank_title'] : '',]]></find>
+				<action type="replace-with"><![CDATA[					'RANK_TITLE_X'		=> get_user_gender_rank($ranks['rank_title'], GENDER_X),
+					'RANK_TITLE_M'		=> get_user_gender_rank($ranks['rank_title'], GENDER_M),
+					'RANK_TITLE_F'		=> get_user_gender_rank($ranks['rank_title'], GENDER_F),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				'RANK_TITLE'		=> $row['rank_title'],]]></find>
+				<action type="replace-with"><![CDATA[				'RANK_TITLE_X'		=> get_user_gender_rank($row['rank_title'], GENDER_X),
+				'RANK_TITLE_M'		=> get_user_gender_rank($row['rank_title'], GENDER_M),
+				'RANK_TITLE_F'		=> get_user_gender_rank($row['rank_title'], GENDER_F),]]></action>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_users.php">
+			<edit>
+				<find><![CDATA[			case 'rank':]]></find>
+				<action type="after-add"><![CDATA[				include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[					$s_rank_options .= '<option value="' . $row['rank_id'] . '"' . $selected . '>' . $row['rank_title'] . '</option>';
+]]></find>
+				<inline-edit>
+					<inline-find>$row['rank_title']</inline-find>
+					<inline-action type="replace-with">get_user_gender_rank($row['rank_title'], $user_row['user_gender'])</inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="includes/mcp/mcp_notes.php">
+			<edit>
+				<find><![CDATA[			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		}]]></find>
+				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender'))
+		{
+			include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
+		}]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'RANK_TITLE'		=> $rank_title,]]></find>
+				<action type="replace-with"><![CDATA[			'RANK_TITLE'		=> get_user_gender_rank($rank_title, $userrow['user_gender']),]]></action>
+			</edit>
+		</open>
+		<open src="includes/mcp/mcp_warn.php">
+			<edit>
+				<find><![CDATA[			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		}]]></find>
+				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender'))
+		{
+			include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
+		}]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'RANK_TITLE'		=> $rank_title,]]></find>
+				<action type="replace-with"><![CDATA[			'RANK_TITLE'		=> get_user_gender_rank($rank_title, $user_row['user_gender']),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		}]]></find>
+				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender'))
+		{
+			include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
+		}]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'RANK_TITLE'		=> $rank_title,]]></find>
+				<action type="replace-with"><![CDATA[			'RANK_TITLE'		=> get_user_gender_rank($rank_title, $user_row['user_gender']),]]></action>
+			</edit>
+		</open>
+		<open src="includes/ucp/ucp_groups.php">
+			<edit>
+				<find><![CDATA[						include($phpbb_root_path . 'includes/functions_display.' . $phpEx);]]></find>
+				<action type="after-add"><![CDATA[						include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[							$rank_options .= '<option value="' . $row['rank_id'] . '"' . $selected . '>' . $row['rank_title'] . '</option>';]]></find>
+				<inline-edit>
+					<inline-find>$row['rank_title']</inline-find>
+					<inline-action type="replace-with">get_user_gender_rank($row['rank_title'], GENDER_X)</inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="includes/ucp/ucp_pm_viewmessage.php">
+			<edit>
+				<find><![CDATA[	$user->add_lang(array('viewtopic', 'memberlist'));]]></find>
+				<action type="after-add"><![CDATA[	if (!function_exists('get_user_gender'))
+	{
+		include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
+	}]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		'RANK_TITLE'		=> $user_info['rank_title'],
+]]></find>
+				<action type="replace-with"><![CDATA[		'RANK_TITLE'		=> get_user_gender_rank($user_info['rank_title'], $user_info['user_gender']),
+]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>

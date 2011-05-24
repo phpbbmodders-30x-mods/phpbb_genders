@@ -21,7 +21,7 @@ $user->setup();
 // auth check
 if ($user->data['user_type'] != USER_FOUNDER)
 {
-	trigger_error('You may not run this script.');
+	trigger_error('NOT_AUTHORISED');
 }
 
 // include db_tools

@@ -39,9 +39,7 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/styles/subsilver2/imageset/icon_gender_x.gif" to="styles/subsilver2/imageset/icon_gender_x.gif"/>
-			<file from="root/styles/subsilver2/imageset/icon_gender_m.gif" to="styles/subsilver2/imageset/icon_gender_m.gif"/>
-			<file from="root/styles/subsilver2/imageset/icon_gender_f.gif" to="styles/subsilver2/imageset/icon_gender_f.gif"/>
+			<file from="root/styles/subsilver2/*.*" to="styles/subsilver2/*.*"/>
 		</copy>
 		<open src="styles/subsilver2/imageset/imageset.cfg">
 			<edit>
@@ -107,5 +105,6 @@ img_icon_gender_f = icon_gender_f.gif]]></action>
 				<action type="after-add"><![CDATA[					<!-- IF postrow.POSTER_GENDER --><br /><b>{L_GENDER}:</b> {postrow.POSTER_GENDER_IMG}<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
+	<diy-instructions lang="en"><![CDATA[After installation, refresh the subsilver2 imageset and template in the admin control panel.]]></diy-instructions>		
 	</action-group>
 </mod>

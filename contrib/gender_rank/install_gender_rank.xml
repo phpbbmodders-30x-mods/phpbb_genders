@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<?xml-stylesheet type="text/xsl" href="../modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
 <!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
 <mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
@@ -7,10 +7,17 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (phpBB version) at phpbbmodders.net"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Gender Rank]]></title>
-		<description lang="en"><![CDATA[Extend on Genders Mod by eviL<3, giving rank title specific to gender, inspired from Extended Rank by Ptirhiik for phpBB2 (and compatible with the extended rank titles after convertion from phpBB2)]]></description>
+		<description lang="en"><![CDATA[Extend on Genders Mod by eviL<3, giving rank title specific to gender, inspired from Extended Rank by Ptirhiik for phpBB2 (and compatible with the extended rank titles after conversion from phpBB2)]]></description>
 		<author-notes lang="en"><![CDATA[Requires Genders MOD by eviL<3
-The rank titles are stored in the DB with each 3 genders (unspecified, male, female) concatained with separator '|' like it was done in phpBB2.]]></author-notes>
+The rank titles are stored in the DB with each 3 genders (unspecified, male, female) concatenated with separator '|' like it was done in phpBB2.]]></author-notes>
 		<author-group>
+			<author>
+				<realname><![CDATA[William Jacoby]]></realname>
+				<username><![CDATA[bonelifer]]></username>
+				<contributions-group>
+					<contributions status="current" position="Developer"/>
+				</contributions-group>
+			</author>		
 			<author>
 				<realname><![CDATA[Fabrice Azorin-Lara]]></realname>
 				<username><![CDATA[Alf-007]]></username>
@@ -28,15 +35,8 @@ The rank titles are stored in the DB with each 3 genders (unspecified, male, fem
 					<contributions status="past" from="2008-01-01" to="2008-04-12" position="Developer"/>
 				</contributions-group>
 			</author>
-			<author>
-				<realname><![CDATA[William Jacoby]]></realname>
-				<username><![CDATA[bonelifer]]></username>
-				<contributions-group>
-					<contributions status="current" position="Developer"/>
-				</contributions-group>
-			</author>
 		</author-group>
-		<mod-version>1.0.1</mod-version>
+		<mod-version>1.0.1.a</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -45,21 +45,21 @@ The rank titles are stored in the DB with each 3 genders (unspecified, male, fem
 		<history>
 			<entry>
 				<date>2007-12-27</date>
-				<rev-version>0.1.0.</rev-version>
+				<rev-version>0.1.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Initial]]></change>
 				</changelog>
 			</entry>
 			<entry>
 				<date>2008-01-01</date>
-				<rev-version>1.0.0.</rev-version>
+				<rev-version>1.0.0</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Slightly modified by evil3 and added to the genders package]]></change>
 				</changelog>
 			</entry>
 			<entry>
 				<date>2008-04-12</date>
-				<rev-version>1.0.1.</rev-version>
+				<rev-version>1.0.1</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Renamed function to get_user_gender_rank and escape_user_gender_rank, i had missed it at many many places]]></change>
 				</changelog>
@@ -134,34 +134,6 @@ The rank titles are stored in the DB with each 3 genders (unspecified, male, fem
 		<td style="text-align: center;">{ranks.RANK_TITLE_F}</td>]]></action>
 			</edit>
 		</open>
-		<open src="includes/functions_genders.php">
-			<edit>
-				<find><![CDATA[?>]]></find>
-				<action type="before-add"><![CDATA[/**
- * Extract a title (for gender rank)
- * Modified by evil3 for sexyness (regex)
- *
- * @param string $titles a string with all title concatained with separator '|'
- * @param number $index index of title to retrieve
- * @return string the title for the index
- */
-function get_user_gender_rank($titles, $index)
-{
-	// thanks davidmj
-	$titles_ary = preg_split('#(?<!\\\\)\|#', $titles);
-
-	return !empty($titles_ary[$index]) ? $titles_ary[$index] : $titles_ary[GENDER_X];
-}
-
-/**
- * Escape user ranks for db entry
- */
-function escape_user_gender_rank($title)
-{
-	return str_replace('|', '\\|', $title);
-}]]></action>
-			</edit>
-		</open>
 		<open src="includes/acp/acp_groups.php">
 			<edit>
 				<find><![CDATA[		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);]]></find>
@@ -224,7 +196,7 @@ function escape_user_gender_rank($title)
 			<edit>
 				<find><![CDATA[			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 		}]]></find>
-				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender'))
+				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender_rank'))
 		{
 			include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
 		}]]></action>
@@ -238,7 +210,7 @@ function escape_user_gender_rank($title)
 			<edit>
 				<find><![CDATA[			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 		}]]></find>
-				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender'))
+				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender_rank'))
 		{
 			include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
 		}]]></action>
@@ -250,7 +222,7 @@ function escape_user_gender_rank($title)
 			<edit>
 				<find><![CDATA[			include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 		}]]></find>
-				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender'))
+				<action type="after-add"><![CDATA[		if (!function_exists('get_user_gender_rank'))
 		{
 			include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
 		}]]></action>
@@ -276,7 +248,7 @@ function escape_user_gender_rank($title)
 		<open src="includes/ucp/ucp_pm_viewmessage.php">
 			<edit>
 				<find><![CDATA[	$user->add_lang(array('viewtopic', 'memberlist'));]]></find>
-				<action type="after-add"><![CDATA[	if (!function_exists('get_user_gender'))
+				<action type="after-add"><![CDATA[	if (!function_exists('get_user_gender_rank'))
 	{
 		include($phpbb_root_path . 'includes/functions_genders.' . $phpEx);
 	}]]></action>

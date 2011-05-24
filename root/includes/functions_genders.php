@@ -2,6 +2,7 @@
 /**
 *
 * @package phpBB3
+* @copyright (c) 2011 phpBBmodders.net
 * @copyright (c) 2007, 2008 evil3
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -53,4 +54,27 @@ function get_user_gender($user_gender, $use_text = false)
 	return $gender;
 }
 
+/**
+ * Extract a title (for gender rank)
+ * Modified by evil3 for sexyness (regex)
+ *
+ * @param string $titles a string with all title concatained with separator '|'
+ * @param number $index index of title to retrieve
+ * @return string the title for the index
+ */
+function get_user_gender_rank($titles, $index)
+{
+	// thanks davidmj
+	$titles_ary = preg_split('#(?<!\\\\)\|#', $titles);
+
+	return !empty($titles_ary[$index]) ? $titles_ary[$index] : $titles_ary[GENDER_X];
+}
+
+/**
+ * Escape user ranks for db entry
+ */
+function escape_user_gender_rank($title)
+{
+	return str_replace('|', '\\|', $title);
+}
 ?>

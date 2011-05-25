@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @author tumba25 (Jari Kanerva) tumba25@gmail.com
+ * @author bonelifer (William Jacoby) bonelifer@phpbbmodders.net
  * @version $Id$
  * @copyright (c) 2011 phpbbmodders.net
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -61,8 +61,9 @@ $versions = array(
 		'table_column_add' => array(
 			array('phpbb_users', 'user_gender', array('BOOL', '0')),
 		),
-
-	),
+   // refresh the template
+      'cache_purge' => array('', 'template', 'theme', 'imageset'),		
+	), 
 );
 
 // Include the UMIL Auto file, it handles the rest

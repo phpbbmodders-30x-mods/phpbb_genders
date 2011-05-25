@@ -19,8 +19,7 @@ Thanks to following people, who created alternative gender images:
  - "(fe)male-images" imageset by Wout -- w00t
  - "Planetary" imageset by HCP
  - "prosilver" imageset by D-Shadow
-
-If you don't know how to run the SQL, simply drop the contrib/db_update.php file into your phpbb_root_path and call it in your browser. The script should do the rest for you. Make sure to delete it after that though.]]></author-notes>
+]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[William Jacoby]]></realname>
@@ -377,6 +376,6 @@ img_icon_gender_f = icon_gender_f.gif]]></action>
 			</edit>
 		</open>
 		<php-installer><![CDATA[genders_mod_install.php]]></php-installer>
-		<diy-instructions lang="en"><![CDATA[After installation, refresh the prosilver imageset and template in the admin control panel.]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[If manually installing this mod after installation, refresh the prosilver imageset and template in the admin control panel. If however you use the provided installer when installing via Automod this is taken care of when using it.]]></diy-instructions>
 	</action-group>
 </mod>

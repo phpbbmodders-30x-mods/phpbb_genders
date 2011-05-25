@@ -28,7 +28,7 @@ If you don't know how to run the SQL, simply drop the contrib/db_update.php file
 				<contributions-group>
 					<contributions status="current" position="Developer"/>
 				</contributions-group>
-			</author>		
+			</author>
 			<author>
 				<realname><![CDATA[Igor Wiedler]]></realname>
 				<username><![CDATA[igorw]]></username>
@@ -94,12 +94,13 @@ If you don't know how to run the SQL, simply drop the contrib/db_update.php file
 					<change><![CDATA[Updated the genders_rank addon]]></change>
 					<change><![CDATA[Updated acp_users code for 3.0.1]]></change>
 				</changelog>
-			</entry>			
+			</entry>
 			<entry>
 				<date>2011-05-20</date>
 				<rev-version>1.0.1.a</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Updated install file to the current MODX.]]></change>
+					<change><![CDATA[Replaced old db_update.php file with a UMIF install package.]]></change>					
 				</changelog>
 			</entry>
 		</history>
@@ -109,10 +110,12 @@ If you don't know how to run the SQL, simply drop the contrib/db_update.php file
 		</link-group>
 	</header>
 	<action-group>
-		<sql><![CDATA[ALTER TABLE phpbb_users ADD user_gender TINYINT(1) UNSIGNED NOT NULL DEFAULT 0;]]></sql>
 		<copy>
 			<file from="root/includes/*.*" to="includes/*.*"/>
 			<file from="root/styles/prosilver/*.*" to="styles/prosilver/*.*"/>
+			<file from="root/umil/*.*" to="umil/*.*"/>
+			<file from="root/genders_mod_install.php" to="genders_mod_install.php"/>
+			<file from="root/language/*.*" to="language/*.*"/>
 		</copy>
 		<open src="memberlist.php">
 			<edit>
@@ -373,6 +376,7 @@ img_icon_gender_f = icon_gender_f.gif]]></action>
 				<action type="after-add"><![CDATA[		<!-- IF postrow.POSTER_GENDER --><dd><strong>{L_GENDER}:</strong> {postrow.POSTER_GENDER_IMG}</dd><!-- ENDIF -->]]></action>
 			</edit>
 		</open>
+		<php-installer><![CDATA[genders_mod_install.php]]></php-installer>
 		<diy-instructions lang="en"><![CDATA[After installation, refresh the prosilver imageset and template in the admin control panel.]]></diy-instructions>
 	</action-group>
 </mod>

@@ -78,7 +78,7 @@ function gender_column ($action, $version)
 		}
 		else
 		{
-			$umil->table_column_add('phpbb_users', 'user_gender', array('BOOL', false));
+			$umil->table_column_add('phpbb_users', 'user_gender', array('BOOL', '0'));
 			return 'GENDERS_USERS_TABLE_UPDATED';
 		}
 	}

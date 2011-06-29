@@ -17,7 +17,7 @@ The rank titles are stored in the DB with each 3 genders (unspecified, male, fem
 				<contributions-group>
 					<contributions status="current" position="Developer"/>
 				</contributions-group>
-			</author>		
+			</author>
 			<author>
 				<realname><![CDATA[Fabrice Azorin-Lara]]></realname>
 				<username><![CDATA[Alf-007]]></username>
@@ -36,7 +36,7 @@ The rank titles are stored in the DB with each 3 genders (unspecified, male, fem
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.1.a</mod-version>
+		<mod-version>1.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -66,7 +66,7 @@ The rank titles are stored in the DB with each 3 genders (unspecified, male, fem
 			</entry>
 			<entry>
 				<date>2011-05-20</date>
-				<rev-version>1.0.1.a</rev-version>
+				<rev-version>1.0.2</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Updated install file to the current MODX.]]></change>
 				</changelog>

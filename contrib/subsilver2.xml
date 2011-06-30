@@ -27,7 +27,7 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.1a</mod-version>
+		<mod-version>1.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -105,6 +105,6 @@ img_icon_gender_f = icon_gender_f.gif]]></action>
 				<action type="after-add"><![CDATA[					<!-- IF postrow.POSTER_GENDER --><br /><b>{L_GENDER}:</b> {postrow.POSTER_GENDER_IMG}<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
-	<diy-instructions lang="en"><![CDATA[After installation, refresh the subsilver2 imageset and template in the admin control panel.]]></diy-instructions>		
+		<diy-instructions lang="en"><![CDATA[After installation, refresh the subsilver2 imageset and template in the admin control panel.]]></diy-instructions>
 	</action-group>
 </mod>

@@ -370,8 +370,8 @@ img_icon_gender_f = icon_gender_f.gif]]></action>
 		</open>
 		<open src="styles/prosilver/template/viewtopic_body.html">
 			<edit>
-				<find><![CDATA[		<!-- IF postrow.POSTER_FROM --><dd><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}</dd><!-- ENDIF -->]]></find>
-				<action type="after-add"><![CDATA[		<!-- IF postrow.POSTER_GENDER --><dd><strong>{L_GENDER}:</strong> {postrow.POSTER_GENDER_IMG}</dd><!-- ENDIF -->]]></action>
+				<find><![CDATA[				<!-- IF postrow.POSTER_FROM --><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}<br /><!-- ENDIF -->]]></find>
+				<action type="after-add"><![CDATA[		<!-- IF postrow.POSTER_GENDER --><strong>{L_GENDER}:</strong> {postrow.POSTER_GENDER_IMG}<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<php-installer><![CDATA[genders_mod_install.php]]></php-installer>
